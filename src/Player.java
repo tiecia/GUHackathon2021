@@ -3,14 +3,16 @@ import java.util.*;
 public class Player
 {
     private final String name;
-    private boolean flopped;
+    private int money;
+    private boolean folded;
     private ArrayList<Card> hand;
     private HandCheck hc;
 
-    public Player(String name)
+    public Player(String name, int money)
     {
         this.name = name;
-        flopped = false;
+        this.money = money;
+        folded = false;
         hand = new ArrayList<>();
         hc = new HandCheck(hand);
     }
@@ -20,9 +22,9 @@ public class Player
         return name;
     }
 
-    public boolean getFlopped()
+    public boolean getFolded()
     {
-        return flopped;
+        return folded;
     }
 
     public ArrayList<Card> getHand()
@@ -30,15 +32,26 @@ public class Player
         return hand;
     }
 
-    public void flop()
+    public void fold()
     {
-        if (!flopped)
-            flopped = true;
+        folded = true;
+    }
+
+    public boolean bet(int amount)
+    {
+        boolean valid = false;
+        if (amount <= money)
+        {
+            valid = true;
+            money -= amount;
+        }
+        return valid;
     }
 
     public void receiveCard(Card card)
     {
         hand.add(card);
+        Collections.sort(hand);
     }
 
     public String receiveBoard(ArrayList<Card> board)

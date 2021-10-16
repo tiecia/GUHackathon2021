@@ -29,6 +29,11 @@ public class Card implements Comparable<Card>
         return suit;
     }
 
+    public boolean isSameSuit(Card other)
+    {
+        return color == other.color && suit == other.suit;
+    }
+
     public String toString()
     {
         String str = CARDS[value] + " of ";
