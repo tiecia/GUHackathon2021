@@ -1,3 +1,5 @@
+import jdk.nashorn.internal.parser.JSONParser;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ public class ClientConnection extends Thread {
     private Socket clientSocket;
     private PrintWriter toClient;
     private BufferedReader fromClient;
+
+    private String name;
 
     public ClientConnection(Server server, Socket socket){
         this.clientSocket = socket;
@@ -33,11 +37,17 @@ public class ClientConnection extends Thread {
 
             String inputLine;
             while ((inputLine = fromClient.readLine()) != null) {
-
+                String function;
                 Scanner s = new Scanner(inputLine);
+                function = s.next();
 
+                if(function.equals("besthand")){
 
+                } else if (function.equals("bet")){
+                    server.bet(this, s.nextInt());
+                } else if (function.equals("hand")){
 
+                }
                 //System.out.println("Server received the line: " + inputLine);
                 //sendMessage(inputLine);
                 //Analyze input packets here
@@ -48,6 +58,10 @@ public class ClientConnection extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private ArrayList<Card> parseHand(String input){
+        Scanner s = new Scanner(input);
     }
 
     public void sendMessage(String message){

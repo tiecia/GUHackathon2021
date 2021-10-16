@@ -56,7 +56,7 @@ public class Server extends Thread {
 
     }
 
-    public void giveMoney(){
+    public void bet(ClientConnection player, int amount){
 
     }
 
