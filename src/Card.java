@@ -19,6 +19,16 @@ public class Card implements Comparable<Card>
         return value;
     }
 
+    public boolean getColor()
+    {
+        return color;
+    }
+
+    public boolean getSuit()
+    {
+        return suit;
+    }
+
     public String toString()
     {
         String str = CARDS[value] + " of ";
