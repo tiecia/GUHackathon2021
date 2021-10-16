@@ -1,8 +1,8 @@
 public class Card implements Comparable<Card>
 {
-    private int value; // [0,12]
-    private boolean color; // F=Red, T=Black
-    private boolean suit; // Red- F=Hearts, T=Diamonds; Black- F=Spades, T=Clubs
+    private final int value; // [0,12]
+    private final boolean color; // F=Red, T=Black
+    private final boolean suit; // Red- F=Hearts, T=Diamonds; Black- F=Spades, T=Clubs
 
     public static final String[] CARDS = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
             "Jack", "Queen", "King"};
