@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Gameloop to play a single turn
  * on a players side, weather thats
@@ -11,15 +13,32 @@ public class Game {
 
     private Player player;
 
-    public Game(ServerConnection serverConnection){
+    private int needToBet;
+
+    public Game(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
         playing = true;
         player = new Player(1000);
     }
 
-    public void startGame(){
+    public void startGame() {
         while(playing) {
-            //Game loop
+
         }
     }
+
+    public void newBetStatus(int bet) {
+        needToBet = bet;
+    }
+
+    public void packetReceived() {
+        System.out.println("Current Board: ");
+    }
+
+    public void hand(ArrayList<Card> hand) {
+        for(Card card : hand) {
+            player.receiveCard(card);
+        }
+    }
+
 }

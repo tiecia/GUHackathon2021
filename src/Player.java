@@ -3,6 +3,7 @@ import java.util.*;
 public class Player
 {
     private int money;
+    private int moneyBet;
     private boolean folded;
     private ArrayList<Card> hand;
     private HandCheck hc;
