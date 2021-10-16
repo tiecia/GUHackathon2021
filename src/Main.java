@@ -31,5 +31,7 @@ public class Main
         }
         serverConnection.stopConnection();
         System.out.println("Game Stopped");
+        Card card = new Card(0, true, true);
+        System.out.println(card);
     }
 }
