@@ -9,7 +9,7 @@ public class Game {
     }
 
     public void startGame(){
-        while(playing){
+        while(playing) {
             //Game loop
         }
     }

@@ -1,18 +1,21 @@
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * The connection from the server to the client.
  * How the server communicates with the client.
  */
 public class ClientConnection extends Thread {
+    private Server server;
     private Socket clientSocket;
     private PrintWriter toClient;
     private BufferedReader fromClient;
 
-    public ClientConnection(Socket socket){
+    public ClientConnection(Server server, Socket socket){
         this.clientSocket = socket;
+        this.server = server;
     }
 
     public void start(int port) throws IOException {
@@ -30,8 +33,13 @@ public class ClientConnection extends Thread {
 
             String inputLine;
             while ((inputLine = fromClient.readLine()) != null) {
-                System.out.println("Server received the line: " + inputLine);
-                sendMessage(inputLine);
+
+                Scanner s = new Scanner(inputLine);
+
+
+
+                //System.out.println("Server received the line: " + inputLine);
+                //sendMessage(inputLine);
                 //Analyze input packets here
             }
             fromClient.close();
@@ -46,7 +54,11 @@ public class ClientConnection extends Thread {
         toClient.println(message);
     }
 
-    public void sendCards(ArrayList<Card> cards){
+    public void dealCards(Dealer dealer, int num){
+
+    }
+
+    public void sendRoundOver(){
 
     }
 }

@@ -37,7 +37,7 @@ public class Server extends Thread {
         try {
             System.out.println("Server started...waiting for connection");
             while (acceptingConnections) {
-                ClientConnection connection = new ClientConnection(serverSocket.accept());
+                ClientConnection connection = new ClientConnection(this, serverSocket.accept());
                 connection.start();
                 clients.add(connection);
                 System.out.println("Client Added");
@@ -50,6 +50,14 @@ public class Server extends Thread {
 
     public static void stopServer(){
         acceptingConnections = false;
+    }
+
+    public void giveHand(){
+
+    }
+
+    public void giveMoney(){
+
     }
 
 
