@@ -19,6 +19,11 @@ public class Card implements Comparable<Card>
         return value;
     }
 
+    public String getImageValue()
+    {
+        return CARDS[value];
+    }
+
     public boolean getColor()
     {
         return color;
