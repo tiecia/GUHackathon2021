@@ -1,6 +1,11 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
+/**
+ * The connection from the server to the client.
+ * How the server communicates with the client.
+ */
 public class ClientConnection extends Thread {
     private Socket clientSocket;
     private PrintWriter toClient;
@@ -39,5 +44,9 @@ public class ClientConnection extends Thread {
 
     public void sendMessage(String message){
         toClient.println(message);
+    }
+
+    public void sendCards(ArrayList<Card> cards){
+
     }
 }

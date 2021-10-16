@@ -1,7 +1,11 @@
 import java.io.*;
 import java.net.*;
 
-public class ServerConnection {
+/**
+ * The connection from the client to the server.
+ * How the client communicates with the server.
+ */
+public class ServerConnection extends Thread {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;

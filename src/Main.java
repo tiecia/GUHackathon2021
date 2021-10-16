@@ -7,9 +7,10 @@ public class Main
         Scanner in = new Scanner(System.in);
         String inBuffer;
         ServerConnection serverConnection = new ServerConnection();
+        Game game;
+
         System.out.println("Host a server? (y/n)");
         inBuffer = in.nextLine();
-
 
         if (inBuffer.equals("y")) {
             Server.start(4444);
@@ -20,8 +21,9 @@ public class Main
             serverConnection.startConnection(inBuffer, 4444);
         }
 
-        //Client
+        game = new Game(serverConnection);
 
+        //Client
         String response = serverConnection.sendMessage("Message From Client");
         System.out.println("Response From Server: " + response);
 
@@ -31,7 +33,5 @@ public class Main
         }
         serverConnection.stopConnection();
         System.out.println("Game Stopped");
-        Card card = new Card(0, true, true);
-        System.out.println(card);
     }
 }
