@@ -2,6 +2,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        System.out.println("hello world");
+        Card card = new Card(0, true, true);
+        System.out.println(card);
     }
 }
