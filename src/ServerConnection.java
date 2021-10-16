@@ -45,5 +45,12 @@ public class ServerConnection extends Thread {
         clientSocket.close();
     }
 
+    private void makeBet(int bet) {
+        sendMessage("bet " + bet);
+    }
+
+    private void fold() {
+        sendMessage("fold");
+    }
 
 }

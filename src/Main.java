@@ -9,6 +9,12 @@ public class Main
         ServerConnection serverConnection = new ServerConnection();
         Game game;
 
+        System.out.println("Type your name: ");
+        String name = in.nextLine();
+        if(name.length() == 0) {
+            name = "Dummy";
+        }
+
         System.out.println("Host a server? (y/n)");
         inBuffer = in.nextLine();
 
