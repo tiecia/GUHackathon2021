@@ -58,4 +58,8 @@ public class Player
     {
         return hc.getBestHand(board);
     }
+
+    public void givePot(int winnings) {
+        money += winnings;
+    }
 }
