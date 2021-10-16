@@ -1,4 +1,4 @@
-public class Card
+public class Card implements Comparable<Card>
 {
     private int value; // [0,12]
     private boolean color; // F=Red, T=Black
@@ -38,5 +38,10 @@ public class Card
                 str += "Hearts";
         }
         return str;
+    }
+
+    public int compareTo(Card other)
+    {
+        return value - other.value;
     }
 }
