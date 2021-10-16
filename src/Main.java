@@ -6,8 +6,8 @@ public class Main
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         String inBuffer;
-        ServerConnection serverConnection = new ServerConnection();
         Game game;
+        ServerConnection serverConnection = new ServerConnection();
 
         System.out.println("Type your name: ");
         String name = in.nextLine();
@@ -26,12 +26,15 @@ public class Main
             inBuffer = in.nextLine();
             serverConnection.startConnection(inBuffer, 4444);
         }
+        serverConnection.setPlayerName(name);
 
-        game = new Game(serverConnection);
+        //game = new Game(serverConnection);
 
         //Client
-        String response = serverConnection.sendMessage("Message From Client");
-        System.out.println("Response From Server: " + response);
+        serverConnection.sendMessage("hand diamond 3 heart 11");
+        serverConnection.sendMessage("besthand fh diamond 3 heart 4 diamond 3 heart 11 spade 9");
+        serverConnection.sendMessage("bet 6");
+
 
 
         if(Server.getSingleton() != null){

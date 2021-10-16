@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 /**
  * The connection from the client to the server.
@@ -9,11 +10,21 @@ public class ServerConnection extends Thread {
     private Socket clientSocket;
     private PrintWriter toServer;
     private BufferedReader fromServer;
+    private Game game;
+
+    public ServerConnection() {
+
+    }
 
     public void startConnection(String ip, int port) throws IOException {
         clientSocket = new Socket(ip, port);
         toServer = new PrintWriter(clientSocket.getOutputStream(), true);
         fromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        this.start();
+    }
+
+    public void setPlayerName(String name){
+        sendMessage(name);
     }
 
     public void run(){
