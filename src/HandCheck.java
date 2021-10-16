@@ -28,11 +28,7 @@ public class HandCheck
 
     public boolean hasRoyalFlush(ArrayList<Card> pool)
     {
-        if (hasStraightFlush(pool))
-        {
-            return true;
-        }
-        return false;
+        return hasStraightFlush(pool) && pool.get(0).getValue() == 9;
     }
 
     public boolean hasStraightFlush(ArrayList<Card> pool)
@@ -55,9 +51,7 @@ public class HandCheck
 
     public boolean hasHouse(ArrayList<Card> pool)
     {
-        if (hasTrio(pool))
-            return countPairs(pool) == 2;
-        return false;
+        return hasTrio(pool) && countPairs(pool) == 2;
     }
 
     public boolean hasFlush(ArrayList<Card> pool)
