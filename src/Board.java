@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Board {
 
     Deck deckOfCards;
-    ArrayList<Integer> players;
+    ArrayList<Player> players;
 
     ArrayList<Card> currentBoard;
     ArrayList<Card> burned;
@@ -22,6 +22,9 @@ public class Board {
         }
         while(burned.size() != 0) {
             deckOfCards.cardsBack(burned.remove(0));
+        }
+        for(Player player : players) {
+            //deckOfCards.cardsBack();
         }
     }
 
