@@ -32,17 +32,17 @@ public class Deck {
     private void createDeck() {
         deck = new ArrayList<>();
 
-        boolean color = false;
+        boolean color = true;
         boolean suit = true;
         // color and suit work as binary operators on the card
         // true on suit is either clubs or diamonds depending on color
         // false is either spades or hearts depending on color
-        for(int colorCount = 0; colorCount < 3; ++colorCount) {
-            for(int cardCount = 0; cardCount < 13; ++cardCount) {
+        for (int colorCount = 0; colorCount < 4; ++colorCount) {
+            for (int cardCount = 0; cardCount < 13; ++cardCount) {
                 deck.add(new Card(cardCount, color, suit));
             }
             suit = !suit;
-            if(colorCount % 2 == 0) {
+            if (colorCount == 1) {
                 color = !color;
             }
         }
