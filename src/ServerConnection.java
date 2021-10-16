@@ -7,20 +7,31 @@ import java.net.*;
  */
 public class ServerConnection extends Thread {
     private Socket clientSocket;
-    private PrintWriter out;
-    private BufferedReader in;
+    private PrintWriter toServer;
+    private BufferedReader fromServer;
 
     public void startConnection(String ip, int port) throws IOException {
         clientSocket = new Socket(ip, port);
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        toServer = new PrintWriter(clientSocket.getOutputStream(), true);
+        fromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+    }
+
+    public void run(){
+        try{
+            String inputLine;
+            while((inputLine = fromServer.readLine()) != null){
+                //Handle packets from server here.
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public String sendMessage(String message){
-        out.println(message);
+        toServer.println(message);
         String resp = null;
         try {
-            resp = in.readLine();
+            resp = fromServer.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,8 +40,8 @@ public class ServerConnection extends Thread {
 
 
     public void stopConnection() throws IOException {
-        in.close();
-        out.close();
+        fromServer.close();
+        toServer.close();
         clientSocket.close();
     }
 
