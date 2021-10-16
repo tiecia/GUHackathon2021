@@ -24,6 +24,10 @@ public class Server extends Thread {
         }
     }
 
+    public static Server getSingleton(){
+        return singleton;
+    }
+
     public Server() throws IOException {
         serverSocket = new ServerSocket(port);
         clients = new ArrayList<>();
