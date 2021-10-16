@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
@@ -52,12 +53,16 @@ public class Server extends Thread {
         acceptingConnections = false;
     }
 
-    public void giveHand(){
+    public void giveBestHand(ClientConnection player, ArrayList<Card> hand){
+        System.out.println("Best hand given " + hand);
+    }
 
+    public void giveHand(ClientConnection player, ArrayList<Card> hand){
+        System.out.println("Hand given" + hand);
     }
 
     public void bet(ClientConnection player, int amount){
-
+        System.out.println("Player bet " + amount);
     }
 
 
