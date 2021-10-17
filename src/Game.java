@@ -125,6 +125,10 @@ public class Game {
         player.givePot(winnings);
     }
 
+    public void roundOver(String name){
+        System.out.println(name + "'s turn is over.");
+    }
+
 
 
 }

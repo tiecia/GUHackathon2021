@@ -6,10 +6,11 @@ public class Main
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         String inBuffer;
-        Game game;
-        ServerConnection serverConnection = new ServerConnection();
+        Game game = null;
+        ServerConnection serverConnection = new ServerConnection(game);
+        game = new Game(serverConnection);
 
-        System.out.println("Type your name: ");
+        System.out.println("Type your name (with no space): ");
         String name = in.nextLine();
         if(name.length() == 0) {
             name = "Dummy";
@@ -29,7 +30,6 @@ public class Main
         System.out.println("Main on thread " + Thread.currentThread());
         serverConnection.setPlayerName(name);
 
-        game = new Game(serverConnection);
 
         if(Server.getSingleton() != null){
             Server.stopServer();
