@@ -72,6 +72,36 @@ public class HandCheck
         else if (hasHouse(pool))
         {
             bestHand[0] = 3;
+            int k = c;
+            for (int i = c; i > 1; i--)
+            {
+                if (pool.get(i).getValue() == pool.get(i - 1).getValue()
+                        && pool.get(i - 1).getValue() == pool.get(i - 2).getValue()) {
+                    c = i;
+                    break;
+                }
+            }
+            for (int i = k; i > 0; i--)
+            {
+                if (pool.get(i).getValue() == pool.get(i - 1).getValue()) {
+                    k = i;
+                    break;
+                }
+            }
+            if (pool.get(k).getValue() < pool.get(c).getValue())
+            {
+                for (int i = 1; i < 3; i++)
+                    bestHand[i] = pool.get(k).getValue();
+                for (int j = 3; j < bestHand.length; j++)
+                    bestHand[j] = pool.get(c).getValue();
+            }
+            else
+            {
+                for (int i = 1; i < 4; i++)
+                    bestHand[i] = pool.get(c).getValue();
+                for (int j = 4; j < bestHand.length; j++)
+                    bestHand[j] = pool.get(k).getValue();
+            }
         }
         else if (hasFlush(pool))
         {
@@ -105,14 +135,97 @@ public class HandCheck
         else if (hasTrio(pool))
         {
             bestHand[0] = 6;
+            for (int i = c; i > 1; i--)
+            {
+                if (pool.get(i).getValue() == pool.get(i - 1).getValue()
+                        && pool.get(i - 1).getValue() == pool.get(i - 2).getValue()) {
+                    c = i;
+                    break;
+                }
+            }
+            int len = bestHand.length - 1;
+            int count = 0;
+            for (int j = pool.size() - 1; j > c && count < 2; j--)
+            {
+                bestHand[len] = pool.get(j).getValue();
+                len--;
+                count++;
+            }
+            while (len > 0)
+            {
+                bestHand[len] = pool.get(c).getValue();
+                len--;
+                c--;
+            }
         }
         else if (countPairs(pool) == 2)
         {
             bestHand[0] = 7;
+            for (int i = c; i > 0; i--)
+            {
+                if (pool.get(i).getValue() == pool.get(i - 1).getValue()) {
+                    c = i;
+                    break;
+                }
+            }
+            int k = c - 2;
+            for (int j = k; j > 0; j--)
+            {
+                if (pool.get(j).getValue() == pool.get(j - 1).getValue())
+                {
+                    k = j;
+                    break;
+                }
+            }
+            if (pool.get(c).getValue() < pool.get(pool.size() - 1).getValue())
+            {
+                bestHand[bestHand.length - 1] = pool.get(pool.size() - 1).getValue();
+                for (int j = 1; j < 3; j++)
+                    bestHand[j] = pool.get(k).getValue();
+                for (int h = 3; h < bestHand.length - 1; h++)
+                    bestHand[h] = pool.get(c).getValue();
+            }
+            else if (pool.get(k).getValue() < pool.get(c - 2).getValue())
+            {
+                bestHand[3] = pool.get(c - 2).getValue();
+                for (int j = 1; j < 3; j++)
+                    bestHand[j] = pool.get(k).getValue();
+                for (int h = 4; h < bestHand.length; h++)
+                    bestHand[h] = pool.get(c).getValue();
+            }
+            else
+            {
+                bestHand[1] = pool.get(k - 2).getValue();
+                for (int j = 2; j < 4; j++)
+                    bestHand[j] = pool.get(k).getValue();
+                for (int h = 4; h < bestHand.length; h++)
+                    bestHand[h] = pool.get(c).getValue();
+            }
         }
         else if (countPairs(pool) == 1)
         {
             bestHand[0] = 8;
+            for (int i = c; i > 0; i--)
+            {
+                if (pool.get(i).getValue() == pool.get(i - 1).getValue()) {
+                    c = i;
+                    break;
+                }
+            }
+            int len = bestHand.length - 1;
+            int count = 0;
+            for (int j = pool.size() - 1; j > c && count < 3; j--)
+            {
+                bestHand[len] = pool.get(j).getValue();
+                len--;
+                count++;
+            }
+            while (len > 0)
+            {
+                bestHand[len] = pool.get(c).getValue();
+                len--;
+                c--;
+            }
         }
         else
         {
