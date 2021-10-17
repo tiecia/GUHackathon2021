@@ -46,4 +46,15 @@ public class BoardManager {
         currentBoard = new ArrayList<Card>();
     }
 
+    /**
+     * simple getter for simple people
+     * i am gong crazy
+     */
+    public int getCards() {
+        return currentBoard.size();
+    }
+
+    public ArrayList<Card> getCurrentBoard() {
+        return currentBoard;
+    }
 }
