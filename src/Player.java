@@ -38,6 +38,7 @@ public class Player
         {
             valid = true;
             money -= amount;
+            moneyBet += amount;
         }
         return valid;
     }
@@ -50,6 +51,7 @@ public class Player
 
     public int[] receiveBoard(ArrayList<Card> board)
     {
+
         return hc.getBestHand(board);
     }
 

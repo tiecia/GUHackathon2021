@@ -7,11 +7,8 @@ public class Server extends Thread {
     private static Server singleton;
     private static int port;
     private static boolean acceptingConnections = true;
-    private static Thread serverThread;
 
     private ServerSocket serverSocket;
-
-    private GameManager game;
 
     private ArrayList<ClientConnection> clients;
 
@@ -34,16 +31,24 @@ public class Server extends Thread {
 
     public void run() {
         try {
-            System.out.println("Server started...waiting for connection");
+            System.out.print("Server started...");
             while (acceptingConnections) {
+                System.out.println("waiting for connection...");
                 ClientConnection connection = new ClientConnection(this, serverSocket.accept(), 4444);
                 connection.start();
                 clients.add(connection);
-                System.out.println("Client Added");
+                System.out.println("Client added");
             }
             serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void startGame(){
+        GameManager.startGame(clients);
+        for (ClientConnection client: clients) {
+            client.startGame(client.getName());
         }
     }
 
@@ -61,5 +66,10 @@ public class Server extends Thread {
 
     public void bet(ClientConnection player, int amount){
         System.out.println("Player bet " + amount);
+        GameManager.getSingleton().bet(player.getName(), amount);
+    }
+
+    public void nextTurn(){
+        GameManager.getSingleton().nextTurn();
     }
 }

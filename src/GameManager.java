@@ -22,6 +22,17 @@ public class GameManager {
 
     private ArrayList<ClientConnection> clientList;
 
+    private static GameManager singleton;
+
+    public static GameManager getSingleton(){
+        return singleton;
+    }
+
+    public static void startGame(ArrayList<ClientConnection> clients){
+        singleton = new GameManager(clients);
+    }
+
+
     public GameManager(ArrayList<ClientConnection> clientList) {
         this.clientList = clientList;
         dealer = new Dealer();
@@ -29,6 +40,7 @@ public class GameManager {
         chips = new ChipManager();
         playing = true;
         dealCards();
+        board.dealCards(dealer, 3);
         start();
     }
 
@@ -46,7 +58,7 @@ public class GameManager {
 
     public void nextTurn() {
         if(currentTurn + 1 < clientList.size()) {
-            clientList.get(++currentTurn).yourTurn(board.getCurrentBoard());
+            clientList.get(currentTurn + 1).yourTurn(board.getCurrentBoard());
         }
         else {
             if(!betMade) {
@@ -82,7 +94,9 @@ public class GameManager {
     }
 
     public void gameOver() {
-
+        for(ClientConnection client : clientList) {
+            client.sendGameOver(board.getCurrentBoard());
+        }
     }
 
     public void decideWinner() {
