@@ -241,17 +241,17 @@ public class HandCheck
         return bestHand;
     }
 
-    public boolean hasRoyalFlush(ArrayList<Card> pool)
+    private boolean hasRoyalFlush(ArrayList<Card> pool)
     {
         return hasStraightFlush(pool) && pool.get(0).getValue() == 9;
     }
 
-    public boolean hasStraightFlush(ArrayList<Card> pool)
+    private boolean hasStraightFlush(ArrayList<Card> pool)
     {
         return hasFlush(pool) && hasStraight(pool);
     }
 
-    public boolean hasQuad(ArrayList<Card> pool)
+    private boolean hasQuad(ArrayList<Card> pool)
     {
         for (int i = 0; i < pool.size() - 3; i++)
         {
@@ -264,12 +264,12 @@ public class HandCheck
         return false;
     }
 
-    public boolean hasHouse(ArrayList<Card> pool)
+    private boolean hasHouse(ArrayList<Card> pool)
     {
         return hasTrio(pool) && countPairs(pool) == 2;
     }
 
-    public boolean hasFlush(ArrayList<Card> pool)
+    private boolean hasFlush(ArrayList<Card> pool)
     {
         for (int i = 0; i < pool.size() - 1; i++)
             if (!pool.get(i).isSameSuit(pool.get(i + 1)))
@@ -277,7 +277,7 @@ public class HandCheck
         return true;
     }
 
-    public boolean hasStraight(ArrayList<Card> pool)
+    private boolean hasStraight(ArrayList<Card> pool)
     {
         for (int i = 0; i < pool.size() - 1; i++)
         {
@@ -291,7 +291,7 @@ public class HandCheck
         return true;
     }
 
-    public boolean hasTrio(ArrayList<Card> pool)
+    private boolean hasTrio(ArrayList<Card> pool)
     {
         for (int i = 0; i < pool.size() - 2; i++)
             if (pool.get(i).getValue() == pool.get(i + 1).getValue()
@@ -300,7 +300,7 @@ public class HandCheck
         return false;
     }
 
-    public int countPairs(ArrayList<Card> pool)
+    private int countPairs(ArrayList<Card> pool)
     {
         int count = 0;
 
