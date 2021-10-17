@@ -26,6 +26,8 @@ public class Main
             inBuffer = in.nextLine();
             serverConnection.startConnection(inBuffer, 4444);
         }
+        System.out.println("Main on thread " + Thread.currentThread());
+
         serverConnection.setPlayerName(name);
 
         //game = new Game(serverConnection);

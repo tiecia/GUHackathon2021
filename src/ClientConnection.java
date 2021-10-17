@@ -13,48 +13,61 @@ public class ClientConnection extends Thread {
     private PrintWriter toClient;
     private BufferedReader fromClient;
 
+    private boolean reading;
+
     private String name;
 
-    public ClientConnection(Server server, Socket socket){
+    public ClientConnection(Server server, Socket socket, int port){
         this.clientSocket = socket;
         this.server = server;
-    }
-
-    public void start(int port) throws IOException {
-        toClient = new PrintWriter(clientSocket.getOutputStream(), true);
-        fromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        this.reading = true;
+        try {
+            toClient = new PrintWriter(clientSocket.getOutputStream(), true);
+            fromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void run() {
         try {
-            toClient = new PrintWriter(clientSocket.getOutputStream(), true);
-            fromClient = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()));
-            name = fromClient.readLine();
-            System.out.println("Name Assigned: " + name);
-            System.out.println("New client created...waiting for packets");
+            //toClient = new PrintWriter(clientSocket.getOutputStream(), true);
+            //fromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            System.out.print("New client created...");
             String inputLine;
-            while ((inputLine = fromClient.readLine()) != null) {
-                System.out.println("Server received a packet");
-                String function;
-                Scanner s = new Scanner(inputLine);
-                function = s.next();
+            while (true) {
+                System.out.println("waiting for packets...on thread " + super.toString());
+                //System.out.println(fromClient.ready());
+                inputLine = fromClient.readLine();
+                //inputLine = "playername drew";
 
-                if(function.equals("besthand")){
-                    server.giveBestHand(this, parseHand(inputLine));
-                } else if (function.equals("bet")){
-                    server.bet(this, s.nextInt());
-                } else if (function.equals("hand")){
-                    server.giveHand(this, parseHand(inputLine));
+                if(inputLine != null){
+                    String function;
+                    Scanner s = new Scanner(inputLine);
+                    function = s.next();
+                    System.out.println("Server received a packet");
+
+                    if(function.equals("besthand")){
+                        server.giveBestHand(this, parseHand(s.nextLine()));
+                    } else if (function.equals("bet")){
+                        server.bet(this, s.nextInt());
+                        System.out.println("bet");
+                    } else if (function.equals("hand")){
+                        server.giveHand(this, parseHand(s.nextLine()));
+                        System.out.println("hand");
+                    } else if (function.equals("playername")){
+                        name = s.nextLine();
+                        System.out.println("New player name set: " + name);
+                    }
+
+                    //System.out.println("Server received the line: " + inputLine);
+                    //sendMessage(inputLine);
+                    //Analyze input packets here
                 }
-
-                //System.out.println("Server received the line: " + inputLine);
-                //sendMessage(inputLine);
-                //Analyze input packets here
             }
-            fromClient.close();
-            toClient.close();
-            clientSocket.close();
+            //fromClient.close();
+            //toClient.close();
+            //clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

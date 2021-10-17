@@ -24,7 +24,7 @@ public class ServerConnection extends Thread {
     }
 
     public void setPlayerName(String name){
-        sendMessage(name);
+        sendMessage("playername " + name);
     }
 
     public void run(){

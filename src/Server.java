@@ -38,7 +38,7 @@ public class Server extends Thread {
         try {
             System.out.println("Server started...waiting for connection");
             while (acceptingConnections) {
-                ClientConnection connection = new ClientConnection(this, serverSocket.accept());
+                ClientConnection connection = new ClientConnection(this, serverSocket.accept(), 4444);
                 connection.start();
                 clients.add(connection);
                 System.out.println("Client Added");
