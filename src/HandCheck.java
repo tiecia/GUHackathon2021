@@ -33,9 +33,7 @@ public class HandCheck
         else if (hasStraightFlush(pool))
         {
             bestHand[0] = 1;
-
             for (int i = c; i > 2; i--)
-            {
                 if ((pool.get(i).getValue() != pool.get(i - 1).getValue() + 1)
                         || !pool.get(i).isSameSuit(pool.get(i - 1))
                         || (pool.get(i - 1).getValue() != pool.get(i - 2).getValue() + 1)
@@ -43,20 +41,23 @@ public class HandCheck
                         || (pool.get(i - 2).getValue() != pool.get(i - 3).getValue() + 1)
                         || !pool.get(i - 2).isSameSuit(pool.get(i - 3)))
                     c--;
-            }
             for (int j = bestHand.length - 1; j > 0; j--)
             {
                 bestHand[j] = pool.get(c).getValue();
                 c--;
             }
         }
-        else if (hasQuad(pool))
-        {
+        else if (hasQuad(pool)) {
             bestHand[0] = 2;
-            int i = 0;
-            while (pool.get(i).getValue() != pool.get(i + 1).getValue()
-                    && pool.get(i).getValue() == pool.get(i + 2).getValue())
-                i++;
+            for (int i = c; i > 2; i--)
+                if (pool.get(i).getValue() != pool.get(i - 1).getValue()
+                        || pool.get(i - 1).getValue() != pool.get(i - 2).getValue()
+                        || pool.get(i - 2).getValue() != pool.get(i - 3).getValue())
+                    c--;
+            if (pool.get(c).getValue() < pool.get(pool.size() - 1).getValue())
+            {
+                //
+            }
         }
         else if (hasHouse(pool))
         {
@@ -66,11 +67,9 @@ public class HandCheck
         {
             bestHand[0] = 4;
             for (int i = c; i > 2; i--)
-            {
                 if (!pool.get(i).isSameSuit(pool.get(i - 1)) || !pool.get(i - 1).isSameSuit(pool.get(i - 2))
                         || !pool.get(i - 2).isSameSuit(pool.get(i - 3)))
                     c--;
-            }
             for (int j = bestHand.length - 1; j > 0; j--)
             {
                 bestHand[j] = pool.get(c).getValue();
@@ -81,12 +80,10 @@ public class HandCheck
         {
             bestHand[0] = 5;
             for (int i = c; i > 2; i--)
-            {
                 if ((pool.get(i).getValue() != pool.get(i - 1).getValue() + 1)
                         || (pool.get(i - 1).getValue() != pool.get(i - 2).getValue() + 1)
                         || (pool.get(i - 2).getValue() != pool.get(i - 3).getValue() + 1))
                     c--;
-            }
             for (int j = bestHand.length - 1; j > 0; j--)
             {
                 bestHand[j] = pool.get(c).getValue();
