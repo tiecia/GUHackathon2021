@@ -19,16 +19,31 @@ public class Game {
 
     private int needToBet;
 
+    /**
+     * rahhhhhhhhh
+     * constructor
+     * @param serverConnection
+     */
     public Game(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
         playing = true;
         player = new Player(1000);
     }
 
+    /**
+     * new bet status when a change occurs
+     * when some weirdo wants to raise the pot
+     * @param bet - bet change
+     */
     public void newBetStatus(int bet) {
         needToBet = bet;
     }
 
+    /**
+     * basic method to be called when a packet is received to give info
+     * to the user on what is going on
+     * @param name - name of user who packet pretains too
+     */
     public void packetReceived(String name) {
         if(needToBet - player.getMoneyBet() == 0) {
             System.out.println("No new bets were made");
@@ -38,6 +53,12 @@ public class Game {
         }
     }
 
+    /**
+     * does the basic logic around the turn
+     * allows the player to choose check, raise, call, or fold
+     * like a normal poker game obviously
+     * @param board - current board of cards
+     */
     public void turn(ArrayList<Card> board) {
         System.out.println("Current Board:");
         for(Card card : board){
@@ -76,14 +97,32 @@ public class Game {
 
     }
 
+    /**
+     * gives a card to this player
+     * @param card - card given
+     */
     public void giveCard(Card card) {
         player.receiveCard(card);
     }
 
+    /**
+     * gets the data of the player winning and
+     * prints the statements
+     * blah blah blah who cares anyway
+     * not me
+     * @param name - name of player than won
+     * @param winningHand - winning hand
+     * @param pot - current pot won
+     */
     public void playerWon(String name, String winningHand, int pot) {
         System.out.println(name + " won the pot of $" + pot + " with a " + winningHand + "!");
     }
 
+    /**
+     * gives the winning to the current player
+     * which is never me...
+     * @param winnings - winnings
+     */
     public void chipsGiven(int winnings) {
         player.givePot(winnings);
     }
