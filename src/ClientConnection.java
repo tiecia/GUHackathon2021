@@ -115,18 +115,23 @@ public class ClientConnection extends Thread {
     }
 
     public void bet(int amount){
-        sendMessage("bet " + amount);
+        sendMessage("bet " + amount + " " + name);
     }
 
-    public void yourTurn(){
-        sendMessage("yourturn");
+    public void yourTurn(ArrayList<Card> board){
+        String boardString = "";
+        for(Card card : board) {
+            boardString += cardToString(card.getColor(), card.getSuit()) + " ";
+            boardString += card.getValue() + " ";
+        }
+        sendMessage("yourturn ");
     }
 
     public void win(boolean result){
         sendMessage("win " + result);
     }
 
-    public void sendRoundOver(){
-        sendMessage("roundover");
+    public void sendRoundOver(String name){
+        sendMessage("roundover " + name);
     }
 }
