@@ -7,11 +7,8 @@ public class Server extends Thread {
     private static Server singleton;
     private static int port;
     private static boolean acceptingConnections = true;
-    private static Thread serverThread;
 
     private ServerSocket serverSocket;
-
-    private GameManager game;
 
     private ArrayList<ClientConnection> clients;
 
@@ -49,7 +46,7 @@ public class Server extends Thread {
     }
 
     public void startGame(){
-        game = new GameManager(clients);
+        GameManager.startGame(clients);
     }
 
     public static void stopServer(){
@@ -66,13 +63,10 @@ public class Server extends Thread {
 
     public void bet(ClientConnection player, int amount){
         System.out.println("Player bet " + amount);
-        game.bet(player.getName(), amount);
+        GameManager.getSingleton().bet(player.getName(), amount);
     }
 
     public void nextTurn(){
-        if(game == null) {
-            startGame();
-        }
-        game.nextTurn();
+        GameManager.getSingleton().nextTurn();
     }
 }

@@ -22,6 +22,17 @@ public class GameManager {
 
     private ArrayList<ClientConnection> clientList;
 
+    private static GameManager singleton;
+
+    public static GameManager getSingleton(){
+        return singleton;
+    }
+
+    public static void startGame(ArrayList<ClientConnection> clients){
+        singleton = new GameManager(clients);
+    }
+
+
     public GameManager(ArrayList<ClientConnection> clientList) {
         this.clientList = clientList;
         dealer = new Dealer();
