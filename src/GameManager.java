@@ -12,14 +12,44 @@ import java.util.ArrayList;
 
 public class GameManager {
 
+    private boolean playing;
+
+    private Dealer dealer;
+    private BoardManager board;
+    private ChipManager chips;
 
     private ArrayList<ClientConnection> clientList;
 
     public GameManager(ArrayList<ClientConnection> clientList) {
         this.clientList = clientList;
+        dealer = new Dealer();
+        board = new BoardManager();
+        chips = new ChipManager();
     }
 
+    public void start() {
 
+    }
+
+    public void nextTurn() {
+
+    }
+
+    public void dealCards() {
+        for(ClientConnection client : clientList) {
+            client.dealCards(dealer,2);
+        }
+    }
+
+    public void bet() {
+
+    }
+
+    public void roundOver() {
+        for(ClientConnection client : clientList) {
+            client.sendRoundOver();
+        }
+    }
 
 
 }
