@@ -35,6 +35,8 @@ public class WinDecider
                 return judgeHouse();
             else if (lowest == 6)
                 return judgeTrio();
+            else if (lowest == 7 || lowest == 8)
+                return judgePair();
             else if (lowest == 9)
                 return judgeHigh();
             return -1;
@@ -144,6 +146,12 @@ public class WinDecider
                 return player2;
         }
         return largest;
+    }
+
+    private int judgePair()
+    {
+        // Unimplemented
+        return -1;
     }
 
     private int judgeHigh()
