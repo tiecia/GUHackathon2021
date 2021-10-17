@@ -47,7 +47,7 @@ public class GameManager {
 
     public void nextTurn() {
         if(currentTurn + 1 < clientList.size()) {
-            clientList.get(++currentTurn).yourTurn(board.getCurrentBoard());
+            clientList.get(currentTurn + 1).yourTurn(board.getCurrentBoard());
         }
         else {
             if(!betMade) {

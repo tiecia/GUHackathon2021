@@ -1,3 +1,5 @@
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class ServerConnection extends Thread {
                     game.newBetStatus(s.nextInt());
                     game.packetReceived(s.nextLine());
                 } else if(function.equals("yourturn")) {
+                    System.out.println("your turn");
                     game.turn(parseDeck(s.nextLine()));
                 } else if(function.equals("win")){
                     String name = s.next();

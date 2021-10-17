@@ -66,7 +66,9 @@ public class Server extends Thread {
 
     public void bet(ClientConnection player, int amount){
         System.out.println("Player bet " + amount);
+        game.bet(player.getName(), amount);
     }
+
     public void nextTurn(){
         if(game == null) {
             startGame();
