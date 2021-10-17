@@ -3,6 +3,7 @@ import java.util.*;
 public class Player
 {
     private int money;
+    private int moneyBet;
     private boolean folded;
     private ArrayList<Card> hand;
     private HandCheck hc;
@@ -47,12 +48,20 @@ public class Player
         Collections.sort(hand);
     }
 
-    public String receiveBoard(ArrayList<Card> board)
+    public int[] receiveBoard(ArrayList<Card> board)
     {
         return hc.getBestHand(board);
     }
 
     public void givePot(int winnings) {
         money += winnings;
+    }
+
+    public int getMoneyBet() {
+        return moneyBet;
+    }
+
+    public int getMoney() {
+        return money;
     }
 }
