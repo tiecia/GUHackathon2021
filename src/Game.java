@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class Game {
 
     private ServerConnection serverConnection;
-    private boolean playing;
 
     private Player player;
 
@@ -26,7 +25,6 @@ public class Game {
      */
     public Game(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
-        playing = true;
         player = new Player(1000);
     }
 
