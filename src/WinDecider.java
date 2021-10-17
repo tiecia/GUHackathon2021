@@ -78,13 +78,14 @@ public class WinDecider
             int count = 0;
             for (int player: competing)
             {
-                if (count > 0)
+                if (count < 1)
                 {
                     if (hands[player][0] == hands[player][3])
                         largest1 = hands[player][5];
                     else
                         largest1 = hands[player][0];
                     player1 = player;
+                    count++;
                 }
                 else
                 {
@@ -93,7 +94,6 @@ public class WinDecider
                     else
                         largest2 = hands[player][0];
                     player2 = player;
-                    count++;
                 }
             }
             if (largest1 > largest2)
