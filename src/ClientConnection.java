@@ -116,6 +116,10 @@ public class ClientConnection extends Thread {
         }
     }
 
+    public void startGame(String names){
+        sendMessage("start " + names);
+    }
+
     public void bet(int amount){
         sendMessage("bet " + amount + " " + name);
     }

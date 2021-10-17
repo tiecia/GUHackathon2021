@@ -47,6 +47,9 @@ public class Server extends Thread {
 
     public void startGame(){
         GameManager.startGame(clients);
+        for (ClientConnection client: clients) {
+            client.startGame(client.getName());
+        }
     }
 
     public static void stopServer(){

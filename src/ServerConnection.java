@@ -54,6 +54,11 @@ public class ServerConnection extends Thread {
                     game.roundOver(s.nextLine());
                 } else if(function.equals("gameover")) {
                     sendBestHand(game.gameOver(parseDeck(s.nextLine())));
+                } else if(function.equals("start")){
+                    System.out.print("Game Starting...Players: ");
+                    while(s.hasNext()){
+                        System.out.print(s.next() + " ");
+                    }
                 }
             }
         } catch (IOException e){
