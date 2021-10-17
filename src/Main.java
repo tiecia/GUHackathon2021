@@ -7,8 +7,9 @@ public class Main
         Scanner in = new Scanner(System.in);
         String inBuffer;
         Game game = null;
-        ServerConnection serverConnection = new ServerConnection(game);
+        ServerConnection serverConnection = new ServerConnection();
         game = new Game(serverConnection);
+        serverConnection.setGame(game);
 
         System.out.println("Type your name (with no space): ");
         String name = in.nextLine();
@@ -27,14 +28,24 @@ public class Main
             inBuffer = in.nextLine();
             serverConnection.startConnection(inBuffer, 4444);
         }
-        System.out.println("Main on thread " + Thread.currentThread());
+        //System.out.println("Main on thread " + Thread.currentThread());
         serverConnection.setPlayerName(name);
 
-
         if(Server.getSingleton() != null){
-            Server.stopServer();
+            System.out.println("Once all players have joined, press enter to start game");
+            Scanner s = new Scanner(System.in);
+            s.nextLine();
+            Server.getSingleton().startGame();
         }
-        serverConnection.stopConnection();
-        System.out.println("Game Stopped");
+
+        while(true){
+
+        }
+
+//        if(Server.getSingleton() != null){
+//            Server.stopServer();
+//        }
+//        serverConnection.stopConnection();
+//        System.out.println("Game Stopped");
     }
 }

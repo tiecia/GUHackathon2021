@@ -35,20 +35,20 @@ public class ClientConnection extends Thread {
             System.out.print("New client created...");
             String inputLine;
             while (reading) {
-                System.out.println("waiting for packets...on thread " + super.toString());
+                System.out.println("waiting for packets...");
                 inputLine = fromClient.readLine();
 
                 if(inputLine != null){
                     String function;
                     Scanner s = new Scanner(inputLine);
                     function = s.next();
-                    System.out.println("Server received a packet");
+                    //System.out.println("Server received a packet");
 
                     if(function.equals("besthand")){
                         server.giveBestHand(this, parseHand(s.nextLine()));
                     } else if (function.equals("bet")){
                         server.bet(this, s.nextInt());
-                        s.next(); //Name from bet packet
+                        server.nextTurn();
                         System.out.println("bet");
                     } else if (function.equals("hand")){
                         server.giveHand(this, parseHand(s.nextLine()));
@@ -56,6 +56,8 @@ public class ClientConnection extends Thread {
                     } else if (function.equals("playername")){
                         name = s.nextLine();
                         System.out.println("New player name set: " + name);
+                    } else if(function.equals("fold")){
+                        server.nextTurn();
                     }
                 }
             }
@@ -124,7 +126,7 @@ public class ClientConnection extends Thread {
             boardString += cardToString(card.getColor(), card.getSuit()) + " ";
             boardString += card.getValue() + " ";
         }
-        sendMessage("yourturn ");
+        sendMessage("yourturn " + boardString);
     }
 
     public void win(String result){

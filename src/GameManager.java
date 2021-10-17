@@ -29,6 +29,7 @@ public class GameManager {
         chips = new ChipManager();
         playing = true;
         dealCards();
+        board.dealCards(dealer, 3);
         start();
     }
 

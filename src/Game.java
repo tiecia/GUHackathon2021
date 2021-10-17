@@ -62,34 +62,38 @@ public class Game {
         for(Card card : board){
             System.out.print(" [" + card + "]");
         }
+        System.out.println();
 
         int betRequired = (needToBet - player.getMoneyBet());
-
-        if(betRequired == 0) {
-            System.out.println("Would you like to Check(c), Raise(c), or Fold(f)?");
-        }
-        else {
-            System.out.println("Would you like to Call(c), Raise(r), or Fold(f)?");
-        }
-        Scanner userIn = new Scanner(System.in);
-        String choice = userIn.next().toLowerCase();
-        if(choice.equals("c")) {
-            serverConnection.makeBet(betRequired);
-        }
-        else if(choice.equals("r")) {
-            System.out.println("You currently have: " + player.getMoney() + "    Current bet is: " + betRequired);
-            System.out.println("How much would you like to raise?");
-            int bet = userIn.nextInt() + betRequired;
-            if(player.bet(bet)) {
-                serverConnection.makeBet(bet);
+        System.out.println("You have $" + player.getMoney());
+        if (!player.getFolded()) {
+            System.out.println("Your hand is: " + player.getHand());
+            if (betRequired == 0) {
+                System.out.println("Would you like to Check(c), Raise(c), or Fold(f)?");
+            } else {
+                System.out.println("Would you like to Call(c), Raise(r), or Fold(f)?");
             }
-            else {
-                System.out.println("You cant make that bet. You fold");
+            Scanner userIn = new Scanner(System.in);
+            String choice = userIn.next().toLowerCase();
+            if (choice.equals("c")) {
+                serverConnection.makeBet(betRequired);
+            } else if (choice.equals("r")) {
+                System.out.println("You currently have: " + player.getMoney() + "    Current bet is: " + betRequired);
+                System.out.println("How much would you like to raise?");
+                int bet = userIn.nextInt() + betRequired;
+                if (player.bet(bet)) {
+                    serverConnection.makeBet(bet);
+                } else {
+                    System.out.println("You cant make that bet. You fold");
+                    serverConnection.fold();
+                }
+            } else {
+                System.out.println("You Fold");
+                player.fold();
                 serverConnection.fold();
             }
-        }
-        else {
-            System.out.println("You Fold");
+        } else {
+            System.out.println("You are folded");
             serverConnection.fold();
         }
 

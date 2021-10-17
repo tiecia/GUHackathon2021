@@ -13,7 +13,7 @@ public class ServerConnection extends Thread {
     private BufferedReader fromServer;
     private Game game;
 
-    public ServerConnection(Game game) {
+    public void setGame(Game game){
         this.game = game;
     }
 
@@ -35,7 +35,10 @@ public class ServerConnection extends Thread {
                 Scanner s = new Scanner(inputLine);
                 String function = s.next();
                 if(function.equals("deal")){
-
+                     ArrayList<Card> cards = parseDeck(s.nextLine());
+                     for(Card card : cards){
+                         game.giveCard(card);
+                     }
                 } else if(function.equals("bet")) {
                     game.newBetStatus(s.nextInt());
                     game.packetReceived(s.nextLine());

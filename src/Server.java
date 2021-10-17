@@ -34,17 +34,22 @@ public class Server extends Thread {
 
     public void run() {
         try {
-            System.out.println("Server started...waiting for connection");
+            System.out.print("Server started...");
             while (acceptingConnections) {
+                System.out.println("waiting for connection...");
                 ClientConnection connection = new ClientConnection(this, serverSocket.accept(), 4444);
                 connection.start();
                 clients.add(connection);
-                System.out.println("Client Added");
+                System.out.println("Client added");
             }
             serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void startGame(){
+        game = new GameManager(clients);
     }
 
     public static void stopServer(){
@@ -61,5 +66,11 @@ public class Server extends Thread {
 
     public void bet(ClientConnection player, int amount){
         System.out.println("Player bet " + amount);
+    }
+    public void nextTurn(){
+        if(game == null) {
+            startGame();
+        }
+        game.nextTurn();
     }
 }
