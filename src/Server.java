@@ -14,6 +14,7 @@ public class Server extends Thread {
     private Dealer dealer;
     private BoardManager board;
     private ChipManager chips;
+    private GameManager game;
 
     private ArrayList<ClientConnection> clients;
 
