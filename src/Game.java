@@ -129,6 +129,10 @@ public class Game {
         System.out.println(name + "'s turn is over.");
     }
 
+    public int[] gameOver(ArrayList<Card> board) {
+        return player.receiveBoard(board);
+    }
+
 
 
 }
