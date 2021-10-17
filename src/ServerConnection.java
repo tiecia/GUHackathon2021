@@ -56,11 +56,11 @@ public class ServerConnection extends Thread {
         clientSocket.close();
     }
 
-    private void makeBet(int bet) {
+    public void makeBet(int bet) {
         sendMessage("bet " + bet);
     }
 
-    private void fold() {
+    public void fold() {
         sendMessage("fold");
     }
 

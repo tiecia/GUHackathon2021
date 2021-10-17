@@ -56,4 +56,12 @@ public class Player
     public void givePot(int winnings) {
         money += winnings;
     }
+
+    public int getMoneyBet() {
+        return moneyBet;
+    }
+
+    public int getMoney() {
+        return money;
+    }
 }
