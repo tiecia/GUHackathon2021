@@ -25,12 +25,6 @@ public class Game {
         player = new Player(1000);
     }
 
-    public void startGame() {
-        while(playing) {
-
-        }
-    }
-
     public void newBetStatus(int bet) {
         needToBet = bet;
     }
@@ -40,7 +34,7 @@ public class Game {
             System.out.println("No new bets were made");
         } else {
             System.out.println("Bet was made by " + name);
-            System.out.println("You need to put $" + (needToBet - player.getMoneyBet()) + " in to stay. Otherwise, fold");
+            System.out.println("You need to put $" + (needToBet - player.getMoneyBet()) + " in to stay.");
         }
     }
 
@@ -84,6 +78,14 @@ public class Game {
 
     public void giveCard(Card card) {
         player.receiveCard(card);
+    }
+
+    public void playerWon(String name, String winningHand, int pot) {
+        System.out.println(name + " won the pot of $" + pot + " with a " + winningHand + "!");
+    }
+
+    public void chipsGiven(int winnings) {
+        player.givePot(winnings);
     }
 
 
