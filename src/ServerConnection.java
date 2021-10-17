@@ -49,7 +49,7 @@ public class ServerConnection extends Thread {
                 } else if(function.equals("roundover")){
                     game.roundOver(s.nextLine());
                 } else if(function.equals("gameover")) {
-                    game.gameOver(parseDeck(s.nextLine()));
+                    int[] array = game.gameOver(parseDeck(s.nextLine()));
                 }
             }
         } catch (IOException e){
