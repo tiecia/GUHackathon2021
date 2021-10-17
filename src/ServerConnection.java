@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -12,8 +13,8 @@ public class ServerConnection extends Thread {
     private BufferedReader fromServer;
     private Game game;
 
-    public ServerConnection() {
-
+    public ServerConnection(Game game) {
+        this.game = game;
     }
 
     public void startConnection(String ip, int port) throws IOException {
@@ -31,11 +32,45 @@ public class ServerConnection extends Thread {
         try{
             String inputLine;
             while((inputLine = fromServer.readLine()) != null){
-                //Handle packets from server here.
+                Scanner s = new Scanner(inputLine);
+                String function = s.next();
+                if(function.equals("deal")){
+
+                } else if(function.equals("bet")) {
+                    game.newBetStatus(s.nextInt());
+                    game.packetReceived(s.nextLine());
+                } else if(function.equals("yourturn")) {
+                    game.turn(parseDeck(s.nextLine()));
+                } else if(function.equals("win")){
+                    String name = s.next();
+                    int pot = s.nextInt();
+                    String hand = s.nextLine();
+                    game.playerWon(name, hand, pot);
+                } else if(function.equals("roundover")){
+                    game.roundOver(s.nextLine());
+                }
             }
         } catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    private ArrayList<Card> parseDeck(String input){
+        ArrayList<Card> cards = new ArrayList<>();
+        Scanner s = new Scanner(input);
+        while(s.hasNext()){
+            String suit = s.next();
+            if(suit.equals("hearts")){
+                cards.add(new Card(s.nextInt(), false, false));
+            } else if(suit.equals("diamond")){
+                cards.add(new Card(s.nextInt(), false, true));
+            } else if(suit.equals("spades")){
+                cards.add(new Card(s.nextInt(), true, false));
+            } else if(suit.equals("clubs")){
+                cards.add(new Card(s.nextInt(), true, true));
+            }
+        }
+        return cards;
     }
 
     public void sendMessage(String message){
