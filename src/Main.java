@@ -6,10 +6,18 @@ public class Main
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         String inBuffer;
-        ServerConnection serverConnection = new ServerConnection();
+        Game game = null;
+        ServerConnection serverConnection = new ServerConnection(game);
+        game = new Game(serverConnection);
+
+        System.out.println("Type your name (with no space): ");
+        String name = in.nextLine();
+        if(name.length() == 0) {
+            name = "Dummy";
+        }
+
         System.out.println("Host a server? (y/n)");
         inBuffer = in.nextLine();
-
 
         if (inBuffer.equals("y")) {
             Server.start(4444);
@@ -19,11 +27,8 @@ public class Main
             inBuffer = in.nextLine();
             serverConnection.startConnection(inBuffer, 4444);
         }
-
-        //Client
-
-        String response = serverConnection.sendMessage("Message From Client");
-        System.out.println("Response From Server: " + response);
+        System.out.println("Main on thread " + Thread.currentThread());
+        serverConnection.setPlayerName(name);
 
 
         if(Server.getSingleton() != null){
@@ -31,7 +36,5 @@ public class Main
         }
         serverConnection.stopConnection();
         System.out.println("Game Stopped");
-        Card card = new Card(0, true, true);
-        System.out.println(card);
     }
 }

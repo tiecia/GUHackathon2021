@@ -4,6 +4,10 @@ import java.util.ArrayList;
  * starts to combine the use of multiple classes into a more central
  * main class. this class acts as the logic of the table. with the methods
  * and will run a round of the game when told.
+ *
+ *
+ *                                             OBSOLETE CLASS NOW! Moved board logic to board manager to ease server/client connection
+ *                                             Kept for refrence purpose
  */
 
 public class Board {
@@ -26,32 +30,14 @@ public class Board {
         players = playerList;
         currentBoard = new ArrayList<>();
         burned = new ArrayList<>();
-
-    }
-
-    /**
-     * returns the cards back to the deck that were
-     * taken throughout the game.
-     */
-    private void returnCards() {
-        while(currentBoard.size() != 0) {
-            deckOfCards.cardsBack(currentBoard.remove(0));
-        }
-        while(burned.size() != 0) {
-            deckOfCards.cardsBack(burned.remove(0));
-        }
-        for(Player player : players) {
-            while(player.getHand().size() != 0) {
-                deckOfCards.cardsBack(player.getHand().remove(0));
-            }
-        }
+        pot = 0;
     }
 
     /**
      * Draws the flop from the board while also
      * burning the starting card.
      */
-    private void drawFlop() {
+    public void drawFlop() {
         burn();
         for(int count = 0; count < 3; ++count) {
             currentBoard.add(deckOfCards.draw());
@@ -62,7 +48,7 @@ public class Board {
      * draws either the turn or the river again
      * starting with a burn
      */
-    private void drawTurnRiver() {
+    public void drawTurnRiver() {
         burn();
         currentBoard.add(deckOfCards.draw());
     }
@@ -72,7 +58,7 @@ public class Board {
      * another round drawing one per. this is too keep
      * true casino random.
      */
-    private void drawPlayer() {
+    public void drawPlayer() {
         for(int count = 0; count < 2; ++count) {
             for (Player player : players) {
                 player.receiveCard(deckOfCards.draw());
@@ -83,13 +69,35 @@ public class Board {
     /**
      * burns a card that will not be used or known
      * during the playing of the game.
+     * but not actually. cuz that would be bad
      */
     private void burn() {
         burned.add(deckOfCards.draw());
     }
 
-    private void addPot(Player player, int playerBet) {
+    /**
+     * adds the money from the player to the pot. or doesnt
+     * not my descision
+     * @param player the player money is being taken from
+     * @param playerBet money added to pot
+     */
+    public boolean addPot(Player player, int playerBet) {
+        if(player.bet(playerBet)) {
+            pot += playerBet;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
+    /**
+     * gives the pot to the winner. obviously?
+     * comon. dont you know poker?
+     * @param player the winner of the current pot
+     */
+    public void givePot(Player player) {
+        player.givePot(pot);
     }
 
 }
