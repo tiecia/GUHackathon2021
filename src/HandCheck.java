@@ -105,6 +105,28 @@ public class HandCheck
         else if (hasTrio(pool))
         {
             bestHand[0] = 6;
+            for (int i = c; i > 1; i--)
+            {
+                if (pool.get(i).getValue() == pool.get(i - 1).getValue()
+                        && pool.get(i - 1).getValue() == pool.get(i - 2).getValue()) {
+                    c = i;
+                    break;
+                }
+            }
+            int len = bestHand.length - 1;
+            int count = 0;
+            for (int j = pool.size() - 1; j > c && count < 2; j--)
+            {
+                bestHand[len] = pool.get(j).getValue();
+                len--;
+                count++;
+            }
+            while (len > 0)
+            {
+                bestHand[len] = pool.get(c).getValue();
+                len--;
+                c--;
+            }
         }
         else if (countPairs(pool) == 2)
         {
@@ -113,6 +135,27 @@ public class HandCheck
         else if (countPairs(pool) == 1)
         {
             bestHand[0] = 8;
+            for (int i = c; i > 0; i--)
+            {
+                if (pool.get(i).getValue() == pool.get(i - 1).getValue()) {
+                    c = i;
+                    break;
+                }
+            }
+            int len = bestHand.length - 1;
+            int count = 0;
+            for (int j = pool.size() - 1; j > c && count < 3; j--)
+            {
+                bestHand[len] = pool.get(j).getValue();
+                len--;
+                count++;
+            }
+            while (len > 0)
+            {
+                bestHand[len] = pool.get(c).getValue();
+                len--;
+                c--;
+            }
         }
         else
         {
