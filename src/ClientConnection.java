@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -31,15 +32,11 @@ public class ClientConnection extends Thread {
 
     public void run() {
         try {
-            //toClient = new PrintWriter(clientSocket.getOutputStream(), true);
-            //fromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             System.out.print("New client created...");
             String inputLine;
-            while (true) {
+            while (reading) {
                 System.out.println("waiting for packets...on thread " + super.toString());
-                //System.out.println(fromClient.ready());
                 inputLine = fromClient.readLine();
-                //inputLine = "playername drew";
 
                 if(inputLine != null){
                     String function;
@@ -51,6 +48,7 @@ public class ClientConnection extends Thread {
                         server.giveBestHand(this, parseHand(s.nextLine()));
                     } else if (function.equals("bet")){
                         server.bet(this, s.nextInt());
+                        s.next(); //Name from bet packet
                         System.out.println("bet");
                     } else if (function.equals("hand")){
                         server.giveHand(this, parseHand(s.nextLine()));
@@ -59,15 +57,11 @@ public class ClientConnection extends Thread {
                         name = s.nextLine();
                         System.out.println("New player name set: " + name);
                     }
-
-                    //System.out.println("Server received the line: " + inputLine);
-                    //sendMessage(inputLine);
-                    //Analyze input packets here
                 }
             }
-            //fromClient.close();
-            //toClient.close();
-            //clientSocket.close();
+            fromClient.close();
+            toClient.close();
+            clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,10 +90,43 @@ public class ClientConnection extends Thread {
     }
 
     public void dealCards(Dealer dealer, int num){
+        String message = "deal ";
+        for(int i = 0; i<num; i++){
+            Card newCard = dealer.dealCard();
+            message += cardToString(newCard.getColor(), newCard.getSuit()) + " ";
+            message += newCard.getValue() + " ";
+        }
+        sendMessage(message);
+    }
 
+    private String cardToString(boolean color, boolean suit){
+        if (color) {
+            if (suit)
+                return "clubs";
+            else
+                return "spades";
+        }
+        else {
+            if (suit)
+                return "diamond";
+            else
+                return "heart";
+        }
+    }
+
+    public void bet(int amount){
+        sendMessage("bet " + amount);
+    }
+
+    public void yourTurn(){
+        sendMessage("yourturn");
+    }
+
+    public void win(boolean result){
+        sendMessage("win " + result);
     }
 
     public void sendRoundOver(){
-
+        sendMessage("roundover");
     }
 }

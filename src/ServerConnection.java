@@ -38,15 +38,8 @@ public class ServerConnection extends Thread {
         }
     }
 
-    public String sendMessage(String message){
+    public void sendMessage(String message){
         toServer.println(message);
-        String resp = null;
-        try {
-            resp = fromServer.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return resp;
     }
 
 
