@@ -64,6 +64,4 @@ public class Server extends Thread {
     public void bet(ClientConnection player, int amount){
         System.out.println("Player bet " + amount);
     }
-
-
 }

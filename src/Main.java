@@ -27,17 +27,9 @@ public class Main
             serverConnection.startConnection(inBuffer, 4444);
         }
         System.out.println("Main on thread " + Thread.currentThread());
-
         serverConnection.setPlayerName(name);
 
-        //game = new Game(serverConnection);
-
-        //Client
-        serverConnection.sendMessage("hand diamond 3 heart 11");
-        serverConnection.sendMessage("besthand fh diamond 3 heart 4 diamond 3 heart 11 spade 9");
-        serverConnection.sendMessage("bet 6");
-
-
+        game = new Game(serverConnection);
 
         if(Server.getSingleton() != null){
             Server.stopServer();
