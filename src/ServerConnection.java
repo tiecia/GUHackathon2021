@@ -94,4 +94,12 @@ public class ServerConnection extends Thread {
         sendMessage("fold");
     }
 
+    public void sendBestHand(int[] hand){
+        String message = "besthand";
+        for(int i = 0; i<hand.length; i++){
+            message += " " + hand[i];
+        }
+        sendMessage(message);
+    }
+
 }
