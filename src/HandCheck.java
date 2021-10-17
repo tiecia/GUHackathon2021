@@ -54,9 +54,19 @@ public class HandCheck
                         || pool.get(i - 1).getValue() != pool.get(i - 2).getValue()
                         || pool.get(i - 2).getValue() != pool.get(i - 3).getValue())
                     c--;
+                else
+                    break;
             if (pool.get(c).getValue() < pool.get(pool.size() - 1).getValue())
             {
-                //
+                bestHand[bestHand.length - 1] = pool.get(pool.size() - 1).getValue();
+                for (int j = 1; j < bestHand.length - 1; j++)
+                    bestHand[j] = pool.get(c).getValue();
+            }
+            else
+            {
+                bestHand[1] = pool.get(c - 4).getValue();
+                for (int j = 2; j < bestHand.length; j++)
+                    bestHand[j] = pool.get(c).getValue();
             }
         }
         else if (hasHouse(pool))
