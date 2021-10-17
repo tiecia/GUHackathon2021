@@ -48,6 +48,8 @@ public class ServerConnection extends Thread {
                     game.playerWon(name, hand, pot);
                 } else if(function.equals("roundover")){
                     game.roundOver(s.nextLine());
+                } else if(function.equals("gameover")) {
+                    game.gameOver(parseDeck(s.nextLine()));
                 }
             }
         } catch (IOException e){

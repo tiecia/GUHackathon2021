@@ -82,7 +82,9 @@ public class GameManager {
     }
 
     public void gameOver() {
-
+        for(ClientConnection client : clientList) {
+            client.sendGameOver(board.getCurrentBoard());
+        }
     }
 
     public void decideWinner() {

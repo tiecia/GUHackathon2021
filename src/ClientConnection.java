@@ -127,11 +127,20 @@ public class ClientConnection extends Thread {
         sendMessage("yourturn ");
     }
 
-    public void win(boolean result){
+    public void win(String result){
         sendMessage("win " + result);
     }
 
     public void sendRoundOver(String name){
         sendMessage("roundover " + name);
+    }
+
+    public void sendGameOver(ArrayList<Card> board) {
+        String boardString = "";
+        for(Card card : board) {
+            boardString += cardToString(card.getColor(), card.getSuit()) + " ";
+            boardString += card.getValue() + " ";
+        }
+        sendMessage("gameover ");
     }
 }
