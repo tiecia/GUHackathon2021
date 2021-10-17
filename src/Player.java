@@ -2,24 +2,18 @@ import java.util.*;
 
 public class Player
 {
-    private final String name;
     private int money;
+    private int moneyBet;
     private boolean folded;
     private ArrayList<Card> hand;
     private HandCheck hc;
 
-    public Player(String name, int money)
+    public Player(int money)
     {
-        this.name = name;
         this.money = money;
         folded = false;
         hand = new ArrayList<>();
         hc = new HandCheck(hand);
-    }
-
-    public String getName()
-    {
-        return name;
     }
 
     public boolean getFolded()
@@ -57,5 +51,17 @@ public class Player
     public int[] receiveBoard(ArrayList<Card> board)
     {
         return hc.getBestHand(board);
+    }
+
+    public void givePot(int winnings) {
+        money += winnings;
+    }
+
+    public int getMoneyBet() {
+        return moneyBet;
+    }
+
+    public int getMoney() {
+        return money;
     }
 }

@@ -49,6 +49,14 @@ public class Deck {
     }
 
     /**
+     * gave up trying to save memory on server side
+     * its neglegable compared to what is being done with the packets
+     */
+    public void newDeck() {
+        createDeck();
+    }
+
+    /**
      * Shuffles the deck
      */
     public void shuffle() {
@@ -60,15 +68,6 @@ public class Deck {
      */
     public Card draw() {
         return deck.remove(0);
-    }
-
-    /**
-     * Cards returned from user and put back into the deck to reduce
-     * the amount of recreation of cards needed as the game is played
-     * @param card the card given back after a round
-     */
-    public void cardsBack(Card card) {
-        deck.add(card);
     }
 
 

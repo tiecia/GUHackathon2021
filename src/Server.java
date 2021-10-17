@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
@@ -10,9 +11,7 @@ public class Server extends Thread {
 
     private ServerSocket serverSocket;
 
-    private Dealer dealer;
-    private BoardManager board;
-    private ChipManager chips;
+    private GameManager game;
 
     private ArrayList<ClientConnection> clients;
 
@@ -37,7 +36,7 @@ public class Server extends Thread {
         try {
             System.out.println("Server started...waiting for connection");
             while (acceptingConnections) {
-                ClientConnection connection = new ClientConnection(serverSocket.accept());
+                ClientConnection connection = new ClientConnection(this, serverSocket.accept(), 4444);
                 connection.start();
                 clients.add(connection);
                 System.out.println("Client Added");
@@ -50,5 +49,17 @@ public class Server extends Thread {
 
     public static void stopServer(){
         acceptingConnections = false;
+    }
+
+    public void giveBestHand(ClientConnection player, ArrayList<Card> hand){
+        System.out.println("Best hand given " + hand);
+    }
+
+    public void giveHand(ClientConnection player, ArrayList<Card> hand){
+        System.out.println("Hand given" + hand);
+    }
+
+    public void bet(ClientConnection player, int amount){
+        System.out.println("Player bet " + amount);
     }
 }
