@@ -47,7 +47,8 @@ public class HandCheck
                 c--;
             }
         }
-        else if (hasQuad(pool)) {
+        else if (hasQuad(pool))
+        {
             bestHand[0] = 2;
             for (int i = c; i > 2; i--)
                 if (pool.get(i).getValue() != pool.get(i - 1).getValue()
@@ -76,14 +77,16 @@ public class HandCheck
             for (int i = c; i > 1; i--)
             {
                 if (pool.get(i).getValue() == pool.get(i - 1).getValue()
-                        && pool.get(i - 1).getValue() == pool.get(i - 2).getValue()) {
+                        && pool.get(i - 1).getValue() == pool.get(i - 2).getValue())
+                {
                     c = i;
                     break;
                 }
             }
             for (int i = k; i > 0; i--)
             {
-                if (pool.get(i).getValue() == pool.get(i - 1).getValue()) {
+                if (pool.get(i).getValue() == pool.get(i - 1).getValue())
+                {
                     k = i;
                     break;
                 }
@@ -163,7 +166,8 @@ public class HandCheck
             bestHand[0] = 7;
             for (int i = c; i > 0; i--)
             {
-                if (pool.get(i).getValue() == pool.get(i - 1).getValue()) {
+                if (pool.get(i).getValue() == pool.get(i - 1).getValue())
+                {
                     c = i;
                     break;
                 }
@@ -207,7 +211,8 @@ public class HandCheck
             bestHand[0] = 8;
             for (int i = c; i > 0; i--)
             {
-                if (pool.get(i).getValue() == pool.get(i - 1).getValue()) {
+                if (pool.get(i).getValue() == pool.get(i - 1).getValue())
+                {
                     c = i;
                     break;
                 }
@@ -272,7 +277,8 @@ public class HandCheck
         return true;
     }
 
-    public boolean hasStraight(ArrayList<Card> pool) {
+    public boolean hasStraight(ArrayList<Card> pool)
+    {
         for (int i = 0; i < pool.size() - 1; i++)
         {
             if (pool.get(i).getValue() > 0)
@@ -285,7 +291,8 @@ public class HandCheck
         return true;
     }
 
-    public boolean hasTrio(ArrayList<Card> pool) {
+    public boolean hasTrio(ArrayList<Card> pool)
+    {
         for (int i = 0; i < pool.size() - 2; i++)
             if (pool.get(i).getValue() == pool.get(i + 1).getValue()
                     && pool.get(i).getValue() == pool.get(i + 2).getValue())
