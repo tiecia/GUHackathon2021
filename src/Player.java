@@ -48,7 +48,7 @@ public class Player
         Collections.sort(hand);
     }
 
-    public String receiveBoard(ArrayList<Card> board)
+    public int[] receiveBoard(ArrayList<Card> board)
     {
         return hc.getBestHand(board);
     }
