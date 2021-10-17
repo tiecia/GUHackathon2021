@@ -33,6 +33,8 @@ public class WinDecider
                 return judgeQuad();
             else if (lowest == 3)
                 return judgeHouse();
+            else if (lowest == 6)
+                return judgeTrio();
             else if (lowest == 9)
                 return judgeHigh();
             return -1;
@@ -93,6 +95,46 @@ public class WinDecider
                         largest2 = hands[player][5];
                     else
                         largest2 = hands[player][0];
+                    player2 = player;
+                }
+            }
+            if (largest1 > largest2)
+                return player1;
+            else
+                return player2;
+        }
+        return largest;
+    }
+
+    private int judgeTrio()
+    {
+        int largest = 0;
+        boolean tie = false;
+        for (int player : competing)
+        {
+            if (hands[player][3] > largest)
+                largest = player;
+            else
+                tie = true;
+        }
+        if (tie)
+        {
+            int player1 = 0;
+            int largest1 = 0;
+            int player2 = 0;
+            int largest2 = 0;
+            int count = 0;
+            for (int player: competing)
+            {
+                if (count < 1)
+                {
+                    largest1 = hands[player][5];
+                    player1 = player;
+                    count++;
+                }
+                else
+                {
+                    largest2 = hands[player][5];
                     player2 = player;
                 }
             }
